@@ -18,6 +18,9 @@ func main() {
 
 	distances := calculateDistances(col1, col2)
 	fmt.Println("Total distance:", distances)
+
+	similarity := calculateSimilarity(col1, col2)
+	fmt.Println("Total similarity:", similarity)
 }
 
 func calculateDistances(col1 []int, col2 []int) int {
@@ -34,6 +37,24 @@ func calculateDistances(col1 []int, col2 []int) int {
 	}
 
 	return totalDistance
+}
+
+func calculateSimilarity(col1 []int, col2 []int) int {
+	occurrencies := make(map[int]int)
+
+	for _, num := range col2 {
+		occurrencies[num]++
+	}
+
+	similarity := 0
+
+	for _, num := range col1 {
+		if occ, exists := occurrencies[num]; exists {
+			similarity += num * occ
+		}
+	}
+
+	return similarity
 }
 
 func loadInput(fileName string) ([]int, []int, error) {
